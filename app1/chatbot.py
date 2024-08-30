@@ -37,10 +37,7 @@ model = train_model(df)
     return action'''
 def recommend_action(hw_type, apps_sw, report_type, report_desc):
     # Ensure all fields are strings
-    hw_type = str(hw_type)
-    apps_sw = str(apps_sw)
-    report_type = str(report_type)
-    report_desc = str(report_desc)
+    
     
     # Combine fields into a single string
     combined_input = hw_type + ' ' + apps_sw + ' ' + report_type + ' ' + report_desc

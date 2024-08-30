@@ -26,6 +26,10 @@ SECRET_KEY = 'django-insecure-p4-!0n(odg1as0jo!&8w2wpj4d)4%_$xpxa84+^0^w+w1y_e%b
 DEBUG = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 #ALLOWED_HOSTS = []
+# settings.py
+
+LOGIN_REDIRECT_URL = 'dashboard' # Default redirect after login
+LOGIN_URL = 'signup'  # URL to redirect to for login if not authenticated
 
 
 # Application definition
@@ -72,6 +76,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Trial.wsgi.application'
 
+# settings.py
+AUTH_USER_MODEL = 'app1.CustomUser'  # Replace 'app_name' with your app's name
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -83,6 +89,7 @@ DATABASES = {
     }
 }
 
+AUTHENTICATION_BACKENDS = ['your_app.backends.EmailBackend', 'django.contrib.auth.backends.ModelBackend']
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

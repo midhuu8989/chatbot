@@ -19,15 +19,26 @@ from django.urls import path
 from app1 import views
 from django.contrib.auth import views as auth_views
 #from app1.forms import EmailAuthenticationForm
-from app1 import views 
-
+from app1.views import (
+    login_view, logout_view, SignUp, admin_dashboard, technician_dashboard,
+    user_dashboard, user_tickets, chatbot_view, open_tickets, update_ticket, closed_tickets
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('', views.landing_page, name='landing_page'),  # Root URL points to main landing page
-    #path('signup/', views.signup_view, name='signup'),
-    #path('login/', views.custom_login_view, name='login'),
-    #path('dashboard/', views.dashboard, name='dashboard'),
-    #path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('chat/', views.chatbot_view, name='chatbot_view')
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+    path('signup/', SignUp.as_view(), name='signup'),
+    path('admin_dashboard/', admin_dashboard, name='admin_dashboard'),
+    path('technician_dashboard', technician_dashboard, name='technician_dashboard'),
+    path('user_dashboard', user_dashboard, name='user_dashboard'),
+    path('user-tickets/', user_tickets, name='user_tickets'),
+    path('chatbot/', chatbot_view, name='chatbot_view'),
+    path('open-tickets/', open_tickets, name='open_tickets'),
+    path('update-ticket/<int:ticket_id>/', update_ticket, name='update_ticket'),
+    path('closed-tickets/', closed_tickets, name='closed_tickets'),
+    #path('admin-dashboard/', dashboard_view, name='admin_dashboard_view'),
+    #path('technician-dashboard/', dashboard_view, name='technician_dashboard'),
+   # path('dashboard/', dashboard_view, name='dashboard_view'),
 ]
+

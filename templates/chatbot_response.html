@@ -2,32 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot Response</title>
 </head>
 <body>
     <h2>Chatbot Response</h2>
-
-    <div>
-        <h3>Chatbot Response</h3>
-        <p>Recommended Action: {{ action }}</p>
-    </div>
-
-    <form method="post" action="{% url 'chatbot_view' %}">
+    <p><strong>Recommended Action:</strong> {{ action }}</p>
+    
+    <form method="post">
         {% csrf_token %}
         <input type="hidden" name="hw_type" value="{{ hw_type }}">
         <input type="hidden" name="apps_sw" value="{{ apps_sw }}">
         <input type="hidden" name="report_type" value="{{ report_type }}">
         <input type="hidden" name="report_desc" value="{{ report_desc }}">
         <input type="hidden" name="pc_ip" value="{{ pc_ip }}">
-        <p>Did this solve your issue?</p>
-        <label><input type="checkbox" name="resolved" value="true"> Yes</label>
-        <label><input type="checkbox" name="notresolved" value="true"> no</label>
-        <button type="submit">Submit Response</button>
+        <input type="hidden" name="action" value="{{ action }}">
+        
+        <label for="resolved">Did this solve your issue?</label><br>
+        <input type="radio" name="resolved" value="yes" id="yes"> Yes<br>
+        <input type="radio" name="resolved" value="no" id="no"> No<br>
+        
+        <button type="submit" name="submit_feedback">Submit Feedback</button>
     </form>
-    
-    <form method="get" action="{% url 'chatbot_view' %}">
-        <button type="submit">Go Back</button>
-    </form>
+    <nav>
+        <!-- Link to the appropriate dashboard based on user role -->
+        {% if user.is_admin %}
+            <a href="{% url 'admin_dashboard' %}">Admin Dashboard</a>
+        {% elif user.is_technician %}
+            <a href="{% url 'technician_dashboard' %}">Technician Dashboard</a>
+        {% elif user.is_user %}
+            <a href="{% url 'user_dashboard' %}">User Dashboard</a>
+        {% else %}
+            <!-- Handle case where user role is not defined -->
+            <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+        
+        <!-- Link to logout -->
+        <a href="{% url 'logout' %}">Logout</a>
+    </nav>
 </body>
 </html>
